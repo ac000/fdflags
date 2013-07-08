@@ -69,6 +69,12 @@ int main(int argc, char *argv[])
 		exit(EXIT_FAILURE);
 
 	flags = strtoul(argv[1], NULL, 8);
+	/*
+	 * O_RDONLY is defined as 0, so we need to check if the LSB is
+	 * actually not set.
+	 */
+	if (1 << flags & !O_RDONLY)
+		printf("O_RDONLY\n");
 	for (i = 0; i < NR_FLAGS; i++)
 		pflag(flags, flags_i[i], flags_s[i]);
 

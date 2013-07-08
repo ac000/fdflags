@@ -1,2 +1,10 @@
 A simple utility to display a file/directories open(2) flags given the flags
 value from /proc/<pid>/fdinfo/fd
+
+e,g
+
+    $ ./fdflags 0444002
+    O_RDWR
+    O_DIRECT
+    O_NOFOLLOW
+    O_NONBLOCK

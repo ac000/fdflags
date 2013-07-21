@@ -21,7 +21,7 @@
 
 #define NR_FLAGS	18
 
-static unsigned long flags_i[] = {
+static const unsigned long flags_i[] = {
 		O_RDONLY,
 		O_WRONLY,
 		O_RDWR,
@@ -41,7 +41,7 @@ static unsigned long flags_i[] = {
 		O_SYNC,
 		O_TRUNC
 		};
-static char *flags_s[] = {
+static const char *flags_s[] = {
 		"O_RDONLY",
 		"O_WRONLY",
 		"O_RDWR",

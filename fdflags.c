@@ -19,7 +19,7 @@
 			printf("%s\n", name); \
 	} while (0)
 
-#define NR_FLAGS	17
+#define NR_FLAGS	18
 
 static unsigned long flags_i[] = {
 		O_RDONLY,
@@ -37,6 +37,7 @@ static unsigned long flags_i[] = {
 		O_NOCTTY,
 		O_NOFOLLOW,
 		O_NONBLOCK,
+		O_PATH,
 		O_SYNC,
 		O_TRUNC
 		};
@@ -56,6 +57,7 @@ static char *flags_s[] = {
 		"O_NOCTTY",
 		"O_NOFOLLOW",
 		"O_NONBLOCK",
+		"O_PATH",
 		"O_SYNC",
 		"O_TRUNC"
 		};

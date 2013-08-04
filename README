@@ -1,5 +1,5 @@
 A simple utility to display a file/directories open(2) flags given the flags
-value from /proc/<pid>/fdinfo/fd
+value from /proc/<pid>/fdinfo/<fd>
 
 e,g
 

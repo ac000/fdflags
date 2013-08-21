@@ -72,6 +72,13 @@ int main(int argc, char *argv[])
 
 	flags = strtoul(argv[1], NULL, 8);
 	/*
+	 * If we are on a 64bit userspace then O_LARGEFILE is set
+	 * explicitly and the define is set to 0.
+	 */
+#if O_LARGEFILE == 0
+	printf("O_LARGEFILE\n");
+#endif
+	/*
 	 * O_RDONLY is defined as 0, so we need to check if the LSB is
 	 * actually not set.
 	 */

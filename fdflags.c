@@ -40,7 +40,9 @@ static const struct flag flags_l[] = {
 	{ O_NOCTTY,	"O_NOCTTY" },
 	{ O_NOFOLLOW,	"O_NOFOLLOW" },
 	{ O_NONBLOCK,	"O_NONBLOCK" },
+#ifdef O_PATH /* glibc 2.14 */
 	{ O_PATH,	"O_PATH" },
+#endif
 	{ O_SYNC,	"O_SYNC" },
 #ifdef O_TMPFILE /* glibc 2.19 */
 	{ O_TMPFILE,	"O_TMPFILE" },

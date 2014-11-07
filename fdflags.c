@@ -1,7 +1,7 @@
 /*
  * fdflags,c - Simple utility to show the open(2) flags for a file/dir
  *
- * Copyright (C) 2013		Andrew Clayton <andrew@digital-domain.net>
+ * Copyright (C) 2013 - 2014	Andrew Clayton <andrew@digital-domain.net>
  *
  * Licensed under the GNU General Public License Version 2
  * See COPYING
@@ -42,6 +42,9 @@ static const struct flag flags_l[] = {
 	{ O_NONBLOCK,	"O_NONBLOCK" },
 	{ O_PATH,	"O_PATH" },
 	{ O_SYNC,	"O_SYNC" },
+#ifdef O_TMPFILE /* glibc 2.19 */
+	{ O_TMPFILE,	"O_TMPFILE" },
+#endif
 	{ O_TRUNC,	"O_TRUNC" },
 	{ }
 };

@@ -19,53 +19,37 @@
 			printf("%s\n", name); \
 	} while (0)
 
-#define NR_FLAGS	18
+struct flag {
+	int val;
+	const char *name;
+};
 
-static const unsigned long flags_i[] = {
-		O_RDONLY,
-		O_WRONLY,
-		O_RDWR,
-		O_APPEND,
-		O_ASYNC,
-		O_CLOEXEC,
-		O_CREAT,
-		O_DIRECT,
-		O_DIRECTORY,
-		O_EXCL,
-		O_LARGEFILE,
-		O_NOATIME,
-		O_NOCTTY,
-		O_NOFOLLOW,
-		O_NONBLOCK,
-		O_PATH,
-		O_SYNC,
-		O_TRUNC
-		};
-static const char *flags_s[] = {
-		"O_RDONLY",
-		"O_WRONLY",
-		"O_RDWR",
-		"O_APPEND",
-		"O_ASYNC",
-		"O_CLOEXEC",
-		"O_CREAT",
-		"O_DIRECT",
-		"O_DIRECTORY",
-		"O_EXCL",
-		"O_LARGEFILE",
-		"O_NOATIME",
-		"O_NOCTTY",
-		"O_NOFOLLOW",
-		"O_NONBLOCK",
-		"O_PATH",
-		"O_SYNC",
-		"O_TRUNC"
-		};
+static const struct flag flags_l[] = {
+	{ O_RDONLY,	"O_RDONLY" },
+	{ O_WRONLY,	"O_WRONLY" },
+	{ O_RDWR,	"O_RDWR" },
+	{ O_APPEND,	"O_APPEND" },
+	{ O_ASYNC,	"O_ASYNC" },
+	{ O_CLOEXEC,	"O_CLOEXEC" },
+	{ O_CREAT,	"O_CREAT" },
+	{ O_DIRECT,	"O_DIRECT" },
+	{ O_DIRECTORY,	"O_DIRECTORY", },
+	{ O_EXCL,	"O_EXCL" },
+	{ O_LARGEFILE,	"O_LARGEFILE" },
+	{ O_NOATIME,	"O_NOATIME" },
+	{ O_NOCTTY,	"O_NOCTTY" },
+	{ O_NOFOLLOW,	"O_NOFOLLOW" },
+	{ O_NONBLOCK,	"O_NONBLOCK" },
+	{ O_PATH,	"O_PATH" },
+	{ O_SYNC,	"O_SYNC" },
+	{ O_TRUNC,	"O_TRUNC" },
+	{ }
+};
 
 int main(int argc, char *argv[])
 {
-	int i;
 	unsigned long flags;
+	const struct flag *fl = flags_l;
 
 	if (argc < 2)
 		exit(EXIT_FAILURE);
@@ -84,8 +68,10 @@ int main(int argc, char *argv[])
 	 */
 	if (1 << flags & !O_RDONLY)
 		printf("O_RDONLY\n");
-	for (i = 0; i < NR_FLAGS; i++)
-		pflag(flags, flags_i[i], flags_s[i]);
+	while (fl->name) {
+		pflag(flags, fl->val, fl->name);
+		fl++;
+	}
 
 	exit(EXIT_SUCCESS);
 }

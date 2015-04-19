@@ -1,7 +1,17 @@
 A simple utility to display a file/directories open(2) flags given the flags
 value from /proc/<pid>/fdinfo/<fd>
 
-e,g
+You can either pass the path to the /proc/<pid>/fdinfo/<fd> file or simply
+pass the flags value.
+
+e.g
+
+    $ ./fdflags /proc/7878/fdinfo/38
+    O_LARGEFILE
+    O_RDWR
+    O_CLOEXEC
+
+or
 
     $ ./fdflags 0444002
     O_RDWR

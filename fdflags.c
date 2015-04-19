@@ -1,7 +1,7 @@
 /*
- * fdflags,c - Simple utility to show the open(2) flags for a file/dir
+ * fdflags.c - Simple utility to show the open(2) flags for a file/dir
  *
- * Copyright (C) 2013 - 2014	Andrew Clayton <andrew@digital-domain.net>
+ * Copyright (C) 2013 - 2015	Andrew Clayton <andrew@digital-domain.net>
  *
  * Licensed under the GNU General Public License Version 2
  * See COPYING
@@ -11,7 +11,9 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <fcntl.h>
+#include <limits.h>
 
 #define pflag(flags, flag, name) \
 	do { \
@@ -51,6 +53,29 @@ static const struct flag flags_l[] = {
 	{ }
 };
 
+static unsigned long read_flags_from_fdinfo(const char *file)
+{
+	FILE *fp = fopen(file, "r");
+	char line[LINE_MAX];
+	unsigned long flags = 0;
+
+	if (!fp) {
+		fprintf(stderr, "Cannot open %s\n", file);
+		exit(EXIT_FAILURE);
+	}
+
+	while (fgets(line, sizeof(line), fp) != NULL) {
+		if (strstr(line, "flags:")) {
+			char *p = strrchr(line, '\t');
+			flags = strtoul(p + 1, NULL, 8);
+			break;
+		}
+	}
+	fclose(fp);
+
+	return flags;
+}
+
 int main(int argc, char *argv[])
 {
 	unsigned long flags;
@@ -59,7 +84,11 @@ int main(int argc, char *argv[])
 	if (argc < 2)
 		exit(EXIT_FAILURE);
 
-	flags = strtoul(argv[1], NULL, 8);
+	if (argv[1][0] < '0' || argv[1][0] > '9')
+		flags = read_flags_from_fdinfo(argv[1]);
+	else
+		flags = strtoul(argv[1], NULL, 8);
+
 	/*
 	 * If we are on a 64bit userspace then O_LARGEFILE is set
 	 * explicitly and the define is set to 0.

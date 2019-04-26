@@ -1,7 +1,8 @@
 /*
  * fdflags.c - Simple utility to show the open(2) flags for a file/dir
  *
- * Copyright (C) 2013 - 2015	Andrew Clayton <andrew@digital-domain.net>
+ * Copyright (C) 2013 - 2015, 2019		Andrew Clayton
+ * 						<andrew@digital-domain.net>
  *
  * Licensed under the GNU General Public License Version 2
  * See COPYING
@@ -36,6 +37,7 @@ static const struct flag flags_l[] = {
 	{ O_CREAT,	"O_CREAT" },
 	{ O_DIRECT,	"O_DIRECT" },
 	{ O_DIRECTORY,	"O_DIRECTORY", },
+	{ O_DSYNC,	"O_DSYNC", },
 	{ O_EXCL,	"O_EXCL" },
 	{ O_LARGEFILE,	"O_LARGEFILE" },
 	{ O_NOATIME,	"O_NOATIME" },
